@@ -444,6 +444,90 @@ p{text-wrap:pretty}
 .hero .cta{white-space:nowrap;max-width:100%}
 @media(max-width:420px){.hero .cta{padding:14px 18px;gap:8px;font-size:15px}.cta-date{margin-left:-6px!important}}
 .cta-date{white-space:nowrap;display:inline-block;background:var(--white);color:var(--navy);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:900;margin:-4px 2px -4px -10px}
+
+/* ===== compact layout ===== */
+section{padding-block:72px}
+.quiz{padding-block:clamp(56px,8vw,96px)}
+.check{padding-block:64px}
+@media(max-width:640px){
+  section{padding-block:52px}
+  .quiz{padding-block:52px}
+  .quiz .yn{margin-top:64px}
+  .check{padding-block:44px}
+  .h2{font-size:26px}
+  /* triangle */
+  .tri{gap:24px}
+  .tri svg{max-width:330px}
+  .aru{margin-top:18px}
+  .aru li{padding:9px 0;font-size:15px}
+  .turn{margin-top:18px;font-size:17px}
+  /* compare */
+  .vs{margin-top:24px}
+  .vs-row{padding-block:12px}
+  .vs-foot{margin-top:22px;font-size:19px}
+  /* rules */
+  .r3{margin-top:24px;gap:10px}
+  .r{padding:14px 16px;border-radius:14px}
+  .r h3{margin-top:2px;font-size:17px}
+  .r p{margin-top:4px;font-size:13px;line-height:1.65}
+  .result{margin-top:20px;gap:10px}
+  .result p{font-size:18px}
+  /* numbers */
+  .grid4{margin-top:28px;gap:22px 18px}
+  .n .big{font-size:56px}
+  .nums .note{margin-top:28px;font-size:14px}
+  /* story */
+  .story-grid{gap:24px}
+  .tl{margin-top:22px}
+  .tl li{padding-block:14px}
+  .tl h3{font-size:17px}
+  .tl p{font-size:14px;line-height:1.75}
+  .signature img{max-width:230px}
+  .signature p{margin-top:10px;font-size:13px}
+  /* discography */
+  .disco .lede{margin-top:14px;font-size:15px}
+  .disco-scroll{margin-top:28px}
+  .rec{width:66vw}
+  .rec-no{margin-top:14px}
+  .rec h3{font-size:17px}
+  .rec-line{font-size:13px}
+  .disco-nav{margin-top:14px}
+  /* outside the triangle: 2 columns */
+  .g6{margin-top:24px;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+  .g{padding:12px 0 16px;border-top-width:1.5px}
+  .g h3{font-size:15px;line-height:1.45}
+  .g p{margin-top:4px;font-size:12.5px;line-height:1.65}
+  /* who */
+  .naming{margin-top:20px;padding:16px 12px;gap:10px}
+  .nm-a-txt{font-size:14px}
+  .who img{max-width:280px;margin-top:20px}
+  .who .lede{margin-top:16px;font-size:15px}
+  .tags{margin-top:12px;font-size:13px}
+  /* host: logo is already in the hero and footer */
+  .host-in{gap:20px}
+  .host-in > img{display:none}
+  .host-txt{gap:14px}
+  .host .lede{font-size:15px}
+  .sns{padding:10px 12px}
+  .bookcard{padding:36px 18px 18px}
+  /* info */
+  .ticket{margin-top:24px}
+  .stub{padding:20px 22px;gap:14px}
+  .stub img{max-width:170px}
+  .det{padding:4px 20px}
+  .det .row{padding-block:11px}
+  .join{margin-top:24px;gap:12px}
+  .att{margin-top:36px;padding-top:26px}
+  .att-list{margin-top:18px;gap:8px}
+  .att-card{padding:12px 14px;gap:6px}
+}
+@media(min-width:641px){
+  .who img{max-width:400px}
+  .q-l2{font-size:clamp(54px,10vw,116px)}
+  .q-l3{font-size:clamp(46px,8.6vw,98px)}
+  .quiz .yn{margin-top:72px}
+}
+@media(max-width:879px){.portrait{width:min(54%,260px)}}
 </style>
 
 <header class="hero" id="top">
