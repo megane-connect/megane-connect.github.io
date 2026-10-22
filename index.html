@@ -362,6 +362,12 @@ p{text-wrap:pretty}
 }
 
 /* attendees */
+.nums-lead{margin-top:56px;max-width:30em;font-weight:900;font-size:clamp(18px,2.4vw,24px);line-height:1.7;color:var(--white)}
+.nums .nums-lead+.note{margin-top:16px}
+.att-go{display:inline-block;margin-top:22px;font-weight:900;font-size:15px;color:var(--navy);background:var(--orange);padding:10px 18px;border-radius:4px;box-shadow:4px 4px 0 rgba(255,255,255,.85);text-decoration:none}
+.att-go i{font-style:normal}
+@media(max-width:600px){.nums-lead{margin-top:32px}}
+
 .join a.sub{color:#D3D2EA;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .att{margin-top:64px;border-top:1px solid rgba(255,255,255,.2);padding-top:40px}
 .att-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
@@ -885,7 +891,23 @@ html{scroll-behavior:smooth}#radio{scroll-margin-top:90px}
       <div class="n"><div class="big">180<span class="unit">組</span></div><p>勝手に<wbr>うまれた<wbr>カップル</p></div>
       <div class="n"><div class="big">30<span class="unit">組</span></div><p>結婚まで<wbr>いった<wbr>カップル</p></div>
     </div>
+    <p class="nums-lead"><span class="nw">180組は、</span><wbr>めがねが<wbr>紹介したんじゃ<wbr>ありません。<br>隣の席に<wbr>座った<wbr>人同士で、<wbr><span class="nw">勝手に生まれていきました。</span></p>
     <p class="note">婚活イベントではありません。<br class="pc">肩書きを<wbr>外して<wbr>本音で<wbr>話せる<wbr>場所には、<wbr>自然と<wbr>いい縁が<wbr>生まれる。<br class="pc">10年やって<wbr>分かったのは、<wbr>それだけです。</p>
+
+    <div class="att" id="attendees">
+      <div class="att-head">
+        <div>
+          <p class="label">Who's Coming</p>
+          <h3 class="att-title">次回の<wbr>参加予定</h3>
+        </div>
+        <p class="att-count"><b id="att-n">0</b><span>人</span></p>
+      </div>
+      <ul class="att-list" id="att-list"></ul>
+      <p class="att-empty" id="att-empty" hidden>まだ<wbr>申込は<wbr>ありません。<wbr>一番乗りで<wbr>どうぞ！</p>
+      <p class="att-note" id="att-note"></p>
+    </div>
+    <a class="att-go" href="#info">次回の<wbr>日程・<wbr>申込は<wbr>こちら <i>↓</i></a>
+
   </div>
 </section>
 
@@ -1058,18 +1080,6 @@ html{scroll-behavior:smooth}#radio{scroll-margin-top:90px}
       <p>30秒で<wbr>申込<wbr>完了。<wbr>確認メールが<wbr>届きます。<br><span class="mail-note">キャンセルにも<wbr>使うので、<wbr>申込後は<wbr>必ず<wbr>メールを<wbr>確認してください。</span><br><span class="subs">質問は<a class="sub" href="https://line.me/ti/p/af5mSt9T1U" target="_blank" rel="noopener">LINE</a><a class="sub" href="https://www.instagram.com/keita.essence/" target="_blank" rel="noopener">Instagram</a>からもどうぞ</span></p>
     </div>
 
-    <div class="att" id="attendees">
-      <div class="att-head">
-        <div>
-          <p class="label">Who's Coming</p>
-          <h3 class="att-title">次回の<wbr>参加予定</h3>
-        </div>
-        <p class="att-count"><b id="att-n">0</b><span>人</span></p>
-      </div>
-      <ul class="att-list" id="att-list"></ul>
-      <p class="att-empty" id="att-empty" hidden>まだ<wbr>申込は<wbr>ありません。<wbr>一番乗りで<wbr>どうぞ！</p>
-      <p class="att-note" id="att-note"></p>
-    </div>
 <!--ATTENDEES:START-->
 <script type="application/json" id="att-data">{"updated":"2026-10-22 06:09","total":2,"people":[{"age":"40代","gender":"男性","times":"2回目","want":"婚活中女子"},{"age":"30代","gender":"女性","times":"初めて","want":"27歳以上の男女と繋がりたい。"}]}</script>
 <!--ATTENDEES:END-->
@@ -1186,7 +1196,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySel
   var FIRST=18000,GAP=50000,SHOW=7000,MAX=Math.min(4,people.length+1),count=0,stopped=false,timer,infoVisible=false;
   for(var i=people.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=people[i];people[i]=people[j];people[j]=x}
   var info=document.getElementById('info');
-  if(info&&'IntersectionObserver' in window){new IntersectionObserver(function(es){infoVisible=es[0].isIntersecting;if(infoVisible)hide()},{threshold:.15}).observe(info)}
+  if('IntersectionObserver' in window){var vis={};var io=new IntersectionObserver(function(es){es.forEach(function(e){vis[e.target.id]=e.isIntersecting});infoVisible=!!(vis.info||vis.attendees);if(infoVisible)hide()},{threshold:.15});if(info)io.observe(info);var at=document.getElementById('attendees');if(at)io.observe(at)}
   function hide(){t.classList.remove('show');setTimeout(function(){if(!t.classList.contains('show'))t.hidden=true},500)}
   function next(){
     if(stopped||count>=MAX)return;
