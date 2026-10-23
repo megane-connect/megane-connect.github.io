@@ -1,0 +1,40 @@
+name: スタエフ最新回を反映
+
+on:
+  schedule:
+    - cron: "47 0 * * *" # 毎日 9:47 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-radio
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: ラジオ欄を更新
+        run: python .github/scripts/update_radio.py
+      - name: 変更があればコミットして push
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "変更なし"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "スタエフ最新回を反映（$(TZ=Asia/Tokyo date +%F)）"
+          for i in 1 2 3; do
+            git push origin HEAD:main && exit 0
+            git pull --rebase origin main
+          done
+          exit 1
