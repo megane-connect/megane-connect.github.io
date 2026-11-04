@@ -557,9 +557,12 @@ section{padding-block:72px}
 .rd-ep{font-size:13px;line-height:1.6;color:var(--navy)}
 .rd-ep b{display:block;font-weight:900;color:var(--white)}
 .rd-btns{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:6px}
-.rd-go{background:var(--navy);color:var(--white);text-decoration:none;font-weight:900;font-size:13px;padding:8px 14px;border-radius:999px}
+.rd-go{background:var(--navy);color:var(--white);text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-weight:900;font-size:13px;padding:8px 14px;border-radius:999px}
 .rd-sub{color:var(--navy);font-size:12px;font-weight:700}
 .rd-go:focus-visible,.rd-sub:focus-visible{outline:3px solid var(--white);outline-offset:3px}
+.rd-player{grid-column:1/-1;width:100%;border-radius:12px;overflow:hidden;background:var(--white);box-shadow:4px 4px 0 var(--navy)}
+.rd-player iframe{display:block;width:100%;height:190px;border:0}
+@media(max-width:480px){.rd-player iframe{height:230px}}
 @keyframes rdSpin{to{transform:rotate(360deg)}}
 @keyframes rdBlink{50%{opacity:.25}}
 @media(max-width:420px){.radio{grid-template-columns:1fr;justify-items:start}.rd-deck{width:96px;height:96px}.rd-disc{width:96px;height:96px}.rd-label{width:42px;height:42px}.rd-arm{height:54px}}
@@ -1026,8 +1029,9 @@ html{scroll-behavior:smooth}#radio{scroll-margin-top:90px}
         <p class="rd-k">めがね、<wbr>喋ってます。</p>
         <p class="rd-ch">stand.fm「あなたと本音が<wbr>繋がる部屋｜元・毒舌男」</p>
         <p class="rd-ep">最新回<b id="rd-title">本音を言えへん男が、<wbr>2年間「超毒舌男」に<wbr>なって気づいたこと</b></p>
-        <div class="rd-btns"><a class="rd-go" id="rd-link" href="https://stand.fm/episodes/6ac86b524c6518e0943fd58c" target="_blank" rel="noopener">▶ 最新回を聴く</a><a class="rd-sub" href="https://stand.fm/channels/690b845dbc35285f62fcc8bd" target="_blank" rel="noopener">チャンネルを見る</a></div>
+        <div class="rd-btns"><button class="rd-go" id="rd-play" type="button" aria-controls="rd-player" aria-expanded="false">▶ ここで聴く</button><a class="rd-sub" href="https://stand.fm/channels/690b845dbc35285f62fcc8bd" target="_blank" rel="noopener">チャンネルを見る</a></div>
       </div>
+      <div class="rd-player" id="rd-player" hidden></div>
     </div>
 <!--RADIO:START-->
 <script type="application/json" id="radio-data">{"title":"#12.お客様に「そんなんええから、はよして」って言われた話。","url":"https://stand.fm/episodes/6adb2fc13c46b7f8726e5e9a","date":"2026-10-24"}</script>
@@ -1263,7 +1267,7 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e)
 </script>
 
 <script>
-(function(){try{var d=JSON.parse(document.getElementById('radio-data').textContent);if(d.title){document.getElementById('rd-title').textContent=d.title}if(d.url){document.getElementById('rd-link').href=d.url}}catch(e){}})();
+(function(){try{var d=JSON.parse(document.getElementById('radio-data').textContent);if(d.title){document.getElementById('rd-title').textContent=d.title}var b=document.getElementById('rd-play'),pl=document.getElementById('rd-player'),m=(d.url||'').match(/episodes\/([0-9a-z]+)/i);b.addEventListener('click',function(){if(!m){if(d.url)location.href=d.url;return}if(!pl.firstChild){var f=document.createElement('iframe');f.src='https://stand.fm/embed/episodes/'+m[1];f.title='stand.fm 最新回';f.setAttribute('frameborder','0');f.setAttribute('allow','encrypted-media; clipboard-write');f.setAttribute('allowtransparency','true');pl.appendChild(f)}var o=pl.hidden;pl.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'▲ 閉じる':'▶ ここで聴く';if(o)pl.scrollIntoView({block:'nearest',behavior:'smooth'})});}catch(e){}})();
 </script>
 <script>(function(){try{var d=JSON.parse(document.getElementById('radio-data').textContent);if(!d.date)return;var t=new Date(d.date+'T00:00:00+09:00');if((Date.now()-t)/864e5<7)document.getElementById('oa-new').hidden=false}catch(e){}})();</script>
 </body>
